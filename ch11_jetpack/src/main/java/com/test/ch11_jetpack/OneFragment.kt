@@ -21,26 +21,25 @@ import com.test.ch11_jetpack.databinding.ItemRecyclerviewBinding
 
 // 항목 뷰를 가지는 역할
 class MyViewHolder(val binding: ItemRecyclerviewBinding):
-        RecyclerView.ViewHolder(binding.root)
+    RecyclerView.ViewHolder(binding.root)
 // 항목 구성자, 어댑터
 class MyAdapter(val datas: MutableList<String>):
-        RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-            //항목 개수를 판단하기 위해 자동 호출
-            override fun getItemCount(): Int{
-                return datas.size
-            }
-        }
-        // 항목 뷰를 가지는 뷰 홀더를 준비하기 위해 자동 호출
-        override fun onCreateViewHolder(parent: ViewGroup, viewType:Int):
-                RecyclerView.ViewHolder =
-                    MyViewHolder(ItemRecyclerviewBinding.inflate(LayoutInflater.from(
-                        parent.context), parent, false))
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    //항목 개수를 판단하기 위해 자동 호출
+    override fun getItemCount(): Int{
+        return datas.size
+    }
+    // 항목 뷰를 가지는 뷰 홀더를 준비하기 위해 자동 호출
+    override fun onCreateViewHolder(parent: ViewGroup, viewType:Int):
+            RecyclerView.ViewHolder =
+                MyViewHolder(ItemRecyclerviewBinding.inflate(LayoutInflater.from(
+                parent.context), parent, false))
         // 각 항목을 구성하기 위해 호출
-        override fun onBindingViewHolder(holder: RecyclerView.ViewHolder, position: Int){
-            val binding=(holder as MyViewHolder).binding
-            // 뷰에 데이터 출력
-            binding.itemData.text = datas[position]
-        }
+    override fun onBindingViewHolder(holder: RecyclerView.ViewHolder, position: Int){
+        val binding=(holder as MyViewHolder).binding
+        // 뷰에 데이터 출력
+        binding.itemData.text = datas[position]
+    }
 }
 
 // 리사이클러 뷰 꾸미기
