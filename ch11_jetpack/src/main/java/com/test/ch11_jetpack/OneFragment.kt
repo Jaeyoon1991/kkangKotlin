@@ -35,7 +35,7 @@ class MyAdapter(val datas: MutableList<String>):
                 MyViewHolder(ItemRecyclerviewBinding.inflate(LayoutInflater.from(
                 parent.context), parent, false))
         // 각 항목을 구성하기 위해 호출
-    override fun onBindingViewHolder(holder: RecyclerView.ViewHolder, position: Int){
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int){
         val binding=(holder as MyViewHolder).binding
         // 뷰에 데이터 출력
         binding.itemData.text = datas[position]
