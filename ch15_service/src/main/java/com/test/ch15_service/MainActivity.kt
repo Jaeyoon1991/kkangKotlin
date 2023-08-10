@@ -7,10 +7,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.pm.PackageManager
 import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
+import androidx.core.content.ContextCompat
 import com.test.ch15_outer.MyAIDLInterface
 import com.test.ch15_service.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
@@ -43,7 +44,23 @@ class MainActivity : AppCompatActivity() {
 
         //jobscheduler......................
         onCreateJobScheduler()
-
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            if(ContextCompat.checkSelfPermission(
+                    this,
+                    "android.permission.POST_NOTIFICATIONS"
+            ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                onCreateJobScheduler()
+            } else {
+                permissionLauncher.launch(
+                    arrayOf(
+                        "android.permission.POST_NOTIFICATIONS"
+                    )
+                )
+            }
+        } else {
+                onCreateJobScheduler()
+        }
     }
 
     override fun onStop() {
@@ -196,7 +213,10 @@ class MainActivity : AppCompatActivity() {
     //JobScheduler
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun onCreateJobScheduler(){
-
+        var jobScheduler: JobScheduler? = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
+        val builder = JobInfo.Builder(1, ComponentName(this, MyJobService::class.java))
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+        val jobInfo = builder.build()
+        jobScheduler!!.schedule(jobInfo)
     }
-
 }

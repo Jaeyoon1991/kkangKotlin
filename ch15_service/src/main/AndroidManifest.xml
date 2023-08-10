@@ -3,7 +3,7 @@
     package="com.test.ch15_service">
 
     <queries>
-        <package android:name="com.example.ch15_outer" />
+        <package android:name="com.test.ch15_outer" />
     </queries>
 
     <application
@@ -16,7 +16,8 @@
         <service
             android:name=".MyJobService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
 
         <activity
             android:name=".MainActivity"
@@ -28,5 +29,6 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
 </manifest>

@@ -12,9 +12,9 @@ import android.util.Log
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class MyJobService : JobService() {
     override fun onStartJob(jobParameters: JobParameters): Boolean {
-        Log.d("kkang", "onStartJob................")
+        Log.d("kkang", "onStartJob.....................")
         val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.0){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
                 NotificationChannel("oneId","oneName",
                     NotificationManager.IMPORTANCE_DEFAULT)
@@ -32,7 +32,6 @@ class MyJobService : JobService() {
         }
         return false
     }
-
     override fun onStopJob(jobParameters: JobParameters?): Boolean {
         return true
     }
